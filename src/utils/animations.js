@@ -27,9 +27,9 @@ export function getInputRangeFromIndexes (range, index, carouselProps) {
 // Scale and/or opacity effect
 // Based on props 'inactiveSlideOpacity' and 'inactiveSlideScale'
 export function defaultScrollInterpolator (index, carouselProps) {
-    const range = [1, 0, -1];
+    const range = [2, 1, 0, -1, -2];
     const inputRange = getInputRangeFromIndexes(range, index, carouselProps);
-    const outputRange = [0, 1, 0];
+    const outputRange = [0, 1, 2, 1, 0];
 
     return { inputRange, outputRange };
 }
@@ -40,8 +40,8 @@ export function defaultAnimatedStyles (index, animatedValue, carouselProps) {
     if (carouselProps.inactiveSlideOpacity < 1) {
         animatedOpacity = {
             opacity: animatedValue.interpolate({
-                inputRange: [0, 1],
-                outputRange: [carouselProps.inactiveSlideOpacity, 1]
+                inputRange: [0, 1, 2],
+                outputRange: [carouselProps.inactiveSlideLastIndexOpacity, carouselProps.inactiveSlideOpacity, 1 ]
             })
         };
     }
@@ -50,8 +50,8 @@ export function defaultAnimatedStyles (index, animatedValue, carouselProps) {
         animatedScale = {
             transform: [{
                 scale: animatedValue.interpolate({
-                    inputRange: [0, 1],
-                    outputRange: [carouselProps.inactiveSlideScale, 1]
+                    inputRange: [0, 1, 2],
+                    outputRange: [carouselProps.inactiveSlideLastIndexScale, carouselProps.inactiveSlideScale, 1]
                 })
             }]
         };
